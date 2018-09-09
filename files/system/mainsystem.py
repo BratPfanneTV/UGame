@@ -11,11 +11,11 @@ class create():
 		self.ip = ip;
 		self.f = trivial.trivial();
 		self.modules = modules.modules();
+		self.profile = profile(self);
+		self.http = http.httpsystem(self);
 		self.gui = gui(self);
 		self.tkinter = tk2;
 		self.game = game.game(self);
-		self.profile = profile(self);
-		self.http = http.httpsystem(self);
 		self.modules.os.system("cls");
 		print("UGame");
 		print("");

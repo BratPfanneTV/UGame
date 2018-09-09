@@ -5,6 +5,12 @@ import os
 import time
 
 class S(BaseHTTPRequestHandler):
+	class user():
+		def __init__(self, name, hash):
+			self.name = name;
+			self.hash = hash;
+		def terminate(self):
+			pass;
 	def _set_headers(self, res=200, type="text/html", loc=False):
 		self.send_response(res)
 		if loc:
@@ -44,12 +50,28 @@ class S(BaseHTTPRequestHandler):
 				if os.path.exists(data["hash"]+".txt") and time.time()-os.path.getmtime(data["hash"]+".txt")<43200:
 					auth=True;
 					print("Secure access from account "+data["name"]+" verified.");
+					data["user"]=self.user(data["name"],data["hash"]);
+				#	del data["name"];
+			else:
+				if self.client_address[0]=="127.0.0.1":
+					auth=True;
+					data["user"]=self.user("admin","fake");
+					data["name"]="admin";
 			os.chdir("..");
+			if auth:
+				psfr = open("serverdata.posdata.json", "r" );
+				posdata = json.loads(psfr.read());
+				psfr.close();
+				if data["name"] in posdata:
+					data["user"].x = posdata[data["name"]]["x"];
+					data["user"].y = posdata[data["name"]]["y"];
+					data["user"].z = posdata[data["name"]]["z"];
+					data["user"].world = posdata[data["name"]]["world"];
 		if auth:
-			try:
-				exec("global response; response = serverfile."+path+"(data);");
-			except AttributeError:	
-				exec('global response; response = "Method not found.";');
+		#	try:
+			exec("global response; response = serverfile."+path+"(data);");
+		#	except AttributeError:	
+		#		exec('global response; response = "Method not found.";');
 		else:
 			exec('global response; response = "Authentification Failed.";');
 		print("Sending response: "+response);

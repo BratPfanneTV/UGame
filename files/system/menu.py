@@ -17,6 +17,7 @@ class menu():
 		text="red";
 		
 		L = tk.Label(system.gui.b, text=text, bg=bg, fg=fg, font=system.f.fsize("16"));
+		tk.Button(system.gui.b, text="Debug", bg="white", fg=fg, font=system.f.fsize("16"), command=self.debug).place(y=system.f.get_screensize(1,94), x=system.f.get_screensize(0,92), anchor=tk.SE);
 		self.connectfunc = self.system.modules.partial(self.connect, L);
 		self.connectfunc.__name__ = "connect";
 		L.after(0, self.connectfunc);
@@ -70,3 +71,29 @@ class menu():
 			self.go();
 		else: 
 			self.login("Login Failed.");
+	def debug(self):
+		self.system.gui.reset();
+		tk = self.system.modules.tkinter;
+		tk.Label(self.system.gui.b, text="Command:").pack();
+		fold = tk.Entry(self.system.gui.b);
+		fold.pack();
+		tk.Label(self.system.gui.b, text="Data:").pack();
+		x = tk.Entry(self.system.gui.b);
+		x.pack();
+	#	Label(self.content_frame, text="Arguments: Spaterate with \"/\"(Keep clear, if you don't need Arguments)").pack();
+	#	self.arg = Entry(self.content_frame);
+	#	self.arg.pack();
+
+		def run(event=None):
+			folder = fold.get();
+			file = x.get();
+		#	arg = self.arg.get();
+			if len(file)==0:
+				file = "{}";
+			self.system.http.secure(folder, self.system.modules.json.loads(file));
+
+		self.system.gui.tk.bind("<Return>", run);
+
+		tk.Button(self.system.gui.b, text="Run Event", command=run).pack();
+		tk.Button(self.system.gui.b, text="Back to the Roots ... ähm Main-Menu", command=self.go).pack();
+	#	self.root.bind("<F12>", self.main_menu);

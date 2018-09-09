@@ -26,7 +26,7 @@ class httpsystem():
 			print("Attempting login on "+url+" with the following parameters: "+str(data));
 			print("Result: "+r);
 		return r;
-	def secure(self, sub, data, profile=False):
+	def secure(self, sub, data={}, profile=False):
 		if not profile:
 			profile = self.system.profile;
 		url = "http://"+self.system.ip+"/secure_"+sub;
