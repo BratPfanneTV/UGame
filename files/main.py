@@ -20,11 +20,11 @@ print("")
 print("#-#-#-#")
 print("")
 print(".");
-time.sleep(1.5);
+time.sleep(0.5);
 print("..");
-time.sleep(1.5);
+time.sleep(0.5);
 print("...");
-time.sleep(1.5);
+time.sleep(0.5);
 print("Shutting down...")
 print("")
 print("")
