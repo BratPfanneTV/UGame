@@ -4,6 +4,18 @@ import json
 import os
 import time
 
+if not os.path.exists('axs'):
+	os.mkdir("axs");
+if not os.path.exists('config.py'):
+	r = os.popen("curl http://213.202.229.164/ugame-server/config.py -s");
+	open("config.py", "w+").write(r.read());
+r = os.popen("curl http://213.202.229.164/ugame-server/index.py -s");
+open("index.py", "w+").write(r.read());
+if not os.path.exists('serverdata.accounts.json'):
+	open("serverdata.accounts.json", "w+").write("{}");
+if not os.path.exists('serverdata.posdata.json'):
+	open("serverdata.posdata.json", "w+").write("{}");
+
 class S(BaseHTTPRequestHandler):
 	class user():
 		def __init__(self, name, hash):

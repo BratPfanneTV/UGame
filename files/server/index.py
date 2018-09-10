@@ -3,6 +3,8 @@ import os
 import hashlib
 import json;
 
+def index(data):
+	return 'Hello!';
 def login(data):
 	if "username" in data and "password" in data:
 		try:
@@ -65,7 +67,7 @@ def secure_movement(data):
 	psfw = open("serverdata.posdata.json", "w+");
 	psfw.write(json.dumps(posdata));
 	psfw.close();
-	return '';
+	return str(config.speed);
 def secure_posdata_file(data):
 	psfr = open("serverdata.posdata.json", "r");
 	c = psfr.read();
@@ -87,5 +89,5 @@ def secure_request_entities(data):
 				if values["y"] in list(range(data["user"].y-480,data["user"].y+480)):
 					x = values["x"]+480-data["user"].x;
 					y = values["y"]+480-data["user"].y;
-					result[name]={"x":x,"y":y};
+					result[name]={"x":x,"y":y,"image":values["image"]};
 	return json.dumps(result);

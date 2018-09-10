@@ -8,7 +8,7 @@ class httpsystem():
 		pass;
 	def send(self, url, method="POST", data={}):
 		if method=="POST":
-			cmd = "curl \""+url+"\" -s -X "+method+" -d "+str(json.dumps(json.dumps(data)));
+			cmd = "curl  --max-time 1 \""+url+"\" -s -X "+method+" -d "+str(json.dumps(json.dumps(data)));
 			print(cmd);
 			response = os.popen(cmd).read();
 		else:
