@@ -1,3 +1,4 @@
+rem Test
 title UGame-Console
 cd files
 if "%1" == "-ip" (
